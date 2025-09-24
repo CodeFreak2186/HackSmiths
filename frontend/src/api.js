@@ -41,3 +41,31 @@ export const registerUser = async (userData) => {
     throw new Error("Registration failed");
   }
 };
+
+
+// Upload FRA Document
+export const uploadFRADocument = async (file) => {
+  if (!file) throw new Error("No file provided");
+
+  const formData = new FormData();
+  formData.append("file", file); // must match backend param name
+
+  try {
+    const response = await api.post("/ocr_ner/upload_fi", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    if (response.data?.success) {
+      return response.data.extracted; // return extracted data
+    } else {
+      console.error("Upload failed:", response.data);
+      throw new Error("Upload failed on server");
+    }
+  } catch (error) {
+    console.error("Upload error:", error.response?.data || error.message || error);
+    throw new Error("File upload failed");
+  }
+};
+
