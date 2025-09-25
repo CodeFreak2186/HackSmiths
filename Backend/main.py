@@ -26,11 +26,13 @@ def read_root():
 from routes.auth import router as auth_router
 from routes.fra import router as fra_router
 from routes.ocr_ner import router as ocr_ner_router
+from routes.dss import router as dss_router
 
 
 app.include_router(auth_router, prefix="/auth", tags=["Auth"]) 
 app.include_router(fra_router, prefix="/fra", tags=["FRA"])
 app.include_router(ocr_ner_router, prefix="/ocr_ner", tags=["OCR_NER"])
+app.include_router(dss_router, prefix="/dss", tags=["DSS"])
 
 
 

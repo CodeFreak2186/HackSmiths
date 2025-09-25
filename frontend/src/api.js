@@ -69,3 +69,14 @@ export const uploadFRADocument = async (file) => {
   }
 };
 
+
+export const fetchDSSRecommendations = async () => {
+  try {
+    const response = await api.get("/dss/dss_recommendations");
+    return response.data; // { success: true, dss_recommendations: [...] }
+  } catch (error) {
+    console.error("DSS fetch error:", error.response?.data || error);
+    throw new Error("Failed to fetch DSS recommendations");
+  }
+};
+
